@@ -12,26 +12,32 @@ Cleaned it up a little (and merged the tiny '_modules_')
 
 First add it to you favorite plugin-manager
 
-```lua lazy.nvim
--- Together with other files:
+### lazy.nvim
+
+```lua init.lua
+-- Together with other files --
 return {
     -- ... other plugins
     { 'LibereCode/toggleTerm.nvim' },
     -- ... other plugins
 }
 
--- Standalone file:
+-------------------------------------
+
+-- Standalone file --
 return { 'LibereCode/toggleTerm.nvim' },
 ```
 
-```lua vim.pack
--- This is the builtin package manager for nvim
+### vim.pack
+
+```lua init.lua
+-- This is the builtin package manager for nvim. see `:h vim.pack`
 vim.pack.add({
     -- ... other plugins
     'https://github.com/LibereCode/toggleTerm.nvim',
     -- ... other plugins
 })
 
--- No `require('toggleTerm').setup()` is needed... yet (because this is an 
---  infant plugin, and hasen't come to that yet...)
+-- No `require('toggleTerm').setup()` is needed... yet
+-- (because this plugin is in its infantcy, and hasen't come to that yet...)
 ```

@@ -1,0 +1,1 @@
+require("toggleTerm").setup() -- NOTE: option 2 (load)

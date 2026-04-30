@@ -1,1 +1,1 @@
-require("toggleTerm").setup() -- NOTE: option 2 (load)
+-- require("toggleTerm").setup() -- NOTE: option 2 (load)

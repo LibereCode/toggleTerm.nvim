@@ -1,7 +1,13 @@
 -- INFO: version 2.1
 -- From my nvim/lua/custom dir
 
+---@class M
+---@field M.state table
+---@field M.state.floating table -- Contains buf-/winNr
+---@field M.state.floating.buf integer
+---@field M.state.floating.win integer
 local M = {}
+
 M.state = {
     floating = {
         buf = -1,
@@ -9,12 +15,24 @@ M.state = {
     },
 }
 
+---@alias x number -- %width,  between 0.0 and 1.0
+---@alias y number -- %height,  between 0.0 and 1.0
+---@alias border string -- bordertype
+
+---@class opts
+---@field x x
+---@field y y
+---@field buf integer
+---@field border border
+
+---@param opts opts
+---@return table<integer, integer>
 function M.toggle_float(opts)
     opts = opts or {}
     local x = opts.x or 0.9
     local y = opts.y or 0.9
 
-    local buf = nil
+    local buf
     if vim.api.nvim_buf_is_valid(opts.buf) then
         buf = opts.buf
     else
@@ -27,21 +45,22 @@ function M.toggle_float(opts)
         height = math.floor(vim.o.lines * y),
         col = math.floor(vim.o.columns * ((1 - x) / 2)),
         row = math.floor(vim.o.lines * ((1 - y) / 2)),
-        border = "rounded",
+        border = opts.border or "double",
     }
     local win = vim.api.nvim_open_win(buf, true, win_conf)
 
     return { buf = buf, win = win }
 end
 
-function M.toggle_term()
+function M.toggle_term(opts)
     if vim.api.nvim_win_is_valid(M.state.floating.win) then -- if visible
         vim.api.nvim_win_hide(M.state.floating.win) -- hide
     else
         M.state.floating = M.toggle_float({
-            x = 0.8,
-            y = 0.8,
+            x = opts.x or 0.8,
+            y = opts.y or 0.8,
             buf = M.state.floating.buf,
+            border = opts.border or "rounded",
         }) -- tells it to use the same buffer
         if vim.bo[M.state.floating.buf].buftype ~= "terminal" then -- if buftype isn't terminal
             vim.cmd.terminal() -- enter terminal
@@ -50,11 +69,12 @@ function M.toggle_term()
     vim.cmd("startinsert")
 end
 
-function M.setup() -- NOTE: the `main()` of plugins
-    vim.api.nvim_create_user_command("Termtoggle", M.toggle_term, {})
+function M.setup() -- empty (for now...)
+    -- TODO: Stop `M.setup()` being empty (for now...)
 
-    vim.keymap.set({ "n", "t" }, "<M-t>", "<CMD>Termtoggle<CR>")
-    vim.keymap.set({ "n", "t" }, "<leader>tt", "<CMD>Termtoggle<CR>")
+    -- vim.api.nvim_create_user_command("Termtoggle", M.toggle_term, {})
+
+    -- TODO: set keymap in .setup()
 end
 
 return M

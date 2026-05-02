@@ -47,7 +47,7 @@ vim.pack.add({
 
 -- set keymap
 vim.keymap.set({ 'n', 't' }, '<M-t>', function()
-    require('toggleTerm').toggle_term({ border = 'single' })
+    require('toggleTerm').toggle_term({ x = 0.7, y = 0.95 })
 end, { desc = 'toggleTerm' })
 
 -- No `require('toggleTerm').setup()` is needed... yet

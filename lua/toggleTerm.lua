@@ -15,26 +15,23 @@ M.state = {
     },
 }
 
----@alias x number -- %width,  between 0.0 and 1.0
----@alias y number -- %height,  between 0.0 and 1.0
----@alias border string -- bordertype
-
----@class opts
----@field x x
----@field y y
+---@class toggle_float_opts
+---@field x number -- %width,  between 0.0 and 1.0
+---@field y number -- %height,  between 0.0 and 1.0
 ---@field buf integer
----@field border border
+---@field border string -- bordertype
 
----@param opts opts
+---@param opts toggle_float_opts
 ---@return table<integer, integer>
 function M.toggle_float(opts)
     opts = opts or {}
     local x = opts.x or 0.9
     local y = opts.y or 0.9
 
+    -- TODO: Understand (and fix?) this part
     local buf
-    if vim.api.nvim_buf_is_valid(opts.buf) then
-        buf = opts.buf
+    if vim.api.nvim_buf_is_valid(M.state.floating.buf) then
+        buf = M.state.floating.buf
     else
         buf = vim.api.nvim_create_buf(false, true) -- buffer be like
     end

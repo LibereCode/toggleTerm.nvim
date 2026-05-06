@@ -6,8 +6,8 @@ This is a ~plugin.nvim~ version of my previous _"pseudo-plugin"_:
 Cleaned it up a little (and merged the tiny '_modules_')
 
 > [!NOTE]
-> This is the primary (`dev`)development branch and will probably be very chaotic.
-> Please just use `main` branch instead.
+> This is the `main` branch. I will do most development on the other branch `dev`
+> before I merge it with `main`
 
 ## USE
 

@@ -88,8 +88,8 @@ M.toggle_hor = function(opts)
 
         if vim.bo[M.state.floating.buf].buftype ~= "terminal" then -- if buftype isn't terminal
             vim.cmd.terminal() -- enter terminal
-            vim.cmd("startinsert")
         end
+        vim.cmd("startinsert")
     end
 end
 

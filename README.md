@@ -1,4 +1,4 @@
-# README toggleTerm
+# README `toggleTerm`
 
 This is a ~plugin.nvim~ version of my previous _"pseudo-plugin"_:
 `toggle_term.lua`
@@ -6,7 +6,7 @@ This is a ~plugin.nvim~ version of my previous _"pseudo-plugin"_:
 Cleaned it up a little (and merged the tiny '_modules_')
 
 > [!NOTE]
-> This is the primary `dev`elopment branch and will probably be very chaotic.
+> This is the primary (`dev`)development branch and will probably be very chaotic.
 > Please just use `main` branch instead.
 
 ## USE
@@ -22,10 +22,14 @@ return {
     {
         'LibereCode/toggleTerm.nvim',
         opts = function()
-            -- set keymap
-            vim.keymap.set({ 'n', 't' }, '<M-t>', function()
-                require('toggleTerm').toggle_term({ border = 'single' })
-            end, { desc = 'toggleTerm' })
+            -- set keymap (examples:)
+            local map, tTerm = vim.keymap.set, require('toggleTerm')
+            map({ 'n', 't' }, '<M-t>', function()
+                tTerm.toggle_float({ border = 'single' })
+            end, { desc = 'toggle floating term' })
+            map({ 'n', 't' }, '<M-t>', function()
+                tTerm.toggle_hor({ y = 0.4 })
+            end, { desc = 'togHor' })
         end,
     },
     -- ... other plugins
@@ -48,8 +52,8 @@ vim.pack.add({
 
 -- set keymap
 vim.keymap.set({ 'n', 't' }, '<M-t>', function()
-    require('toggleTerm').toggle_term({ x = 0.7, y = 0.95 })
-end, { desc = 'toggleTerm' })
+    require('toggleTerm').toggle_float({ x = 0.7, y = 0.95 })
+end, { desc = 'toggle floating terminal and make this desc shorter.' })
 
 -- No `require('toggleTerm').setup()` is needed... yet
 -- (because this plugin is in its infantcy, and hasen't come to that yet...)
@@ -57,7 +61,7 @@ end, { desc = 'toggleTerm' })
 
 ### keymap
 
-Possible values for **_opts_** in `toggle_term(opts)`:
+Possible values for **_opts_** in `toggle_[float|hor](opts)`:
 
 - `x = number` (0 <= _number_ <= 1) _# the width_
 - `y = number` (0 <= _number_ <= 1) _# the height_

@@ -21,24 +21,25 @@ return {
     -- ... other plugins
     {
         'LibereCode/toggleTerm.nvim',
-        opts = function()
-            -- set keymap (examples:)
+        opts = function(_, opts)
+            -- create terminal(s) and set keymap (examples:)
             local map, tTerm = vim.keymap.set, require('toggleTerm')
+            local terminal = tTerm.new()
+
             map({ 'n', 't' }, '<M-t>', function()
-                tTerm.toggle_float({ border = 'single' })
+                terminal:toggle_float({ border = 'single' })
             end, { desc = 'toggle floating term' })
             map({ 'n', 't' }, '<M-t>', function()
-                tTerm.toggle_hor({ y = 0.4 })
+                terminal:toggle_hor({ y = 0.4 })
             end, { desc = 'togHor' })
+
+            -- can also create other terminal instances by just
+            -- running `local newVar = tTerm.new()` again
         end,
     },
     -- ... other plugins
 }
 ```
-
-> [!ATTENTION]
-> This plugin only loads when called with `require('toggleTerm')...`
-> So **DO NOT** _lazy-load_ !!
 
 ### vim.pack
 
@@ -50,13 +51,16 @@ vim.pack.add({
     -- ... other plugins
 })
 
+local tTerm = require('toggleTerm')
+tTerm.setup(function())
+    terminal = tTerm.new()
+end)
+
 -- set keymap
 vim.keymap.set({ 'n', 't' }, '<M-t>', function()
-    require('toggleTerm').toggle_float({ x = 0.7, y = 0.95 })
+    terminal:toggle_float({ x = 0.7, y = 0.95 })
 end, { desc = 'toggle floating terminal and make this desc shorter.' })
 
--- No `require('toggleTerm').setup()` is needed... yet
--- (because this plugin is in its infantcy, and hasen't come to that yet...)
 ```
 
 ### keymap

@@ -62,6 +62,21 @@ function M:toggle_float(opts)
         if vim.bo[self.state.floating.buf].buftype ~= "terminal" then -- if buftype isn't terminal
             vim.cmd.terminal() -- enter terminal
         end
+
+        ---QoL autocmd to close if losing focus
+        vim.api.nvim_create_autocmd("WinLeave", {
+            group = vim.api.nvim_create_augroup("toggleTerm-float-WinLeave-close", { clear = true }),
+            desc = "Automatically close toggleTerm-float window when it looses focus.",
+            buf = self.state.floating.buf,
+            once = true,
+            callback = function(args)
+                if vim.api.nvim_buf_is_valid(args.buf) then
+                    vim.api.nvim_win_hide(self.state.floating.win)
+                else
+                    return -- how even?
+                end
+            end,
+        })
     end
     vim.cmd("startinsert")
 end

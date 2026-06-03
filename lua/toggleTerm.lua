@@ -1,20 +1,22 @@
 -- INFO: version 2.1
 -- From my nvim/lua/custom dir
 
--- -@class M
--- -@field M.state table
--- -@field M.state.floating table -- Contains buf-/winNr
--- -@field M.state.floating.buf integer
--- -@field M.state.floating.win integer
-local M = {}
-M.__index = M -- TEST:
+---@class Floating
+---@field buf integer
+---@field win integer
 
----@class self
----@field M.state table
----@field M.state.floating table -- Contains buf-/winNr
----@field M.state.floating.buf integer
----@field M.state.floating.win integer
+---@class State
+---@field floating Floating
+
+---@class M
+---@field state State
+
+local M = {}
+M.__index = M
+
+---@return M
 M.new = function()
+    ---@type M
     local self = setmetatable({}, M)
     self.state = {
         floating = {
@@ -30,7 +32,9 @@ end
 ---@field y? number -- %height,  between 0.0 and 1.0
 ---@field border? string -- bordertype
 
----@param opts toggle_float_opts
+---@class M
+---@field toggle_float function<toggle_float_opts?>
+---@param opts? toggle_float_opts
 --- merging `M.toggle()` and `M.float()`
 function M:toggle_float(opts)
     if vim.api.nvim_win_is_valid(self.state.floating.win) then -- if visible
@@ -85,6 +89,9 @@ end
 ---@field y? number -- %width,  between 0.0 and 1.0
 ---@field win? integer -- -1(default) = across all windows OR 0 = just current
 
+---@class M
+---@field toggle_hor function<toggle_hor_opts?>
+---@param self M
 ---@param opts? toggle_hor_opts
 --- merging `M.toggle()` and `M.horizonstal()`
 function M:toggle_hor(opts)

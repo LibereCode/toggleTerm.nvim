@@ -71,8 +71,31 @@ Possible values for **_opts_** in `toggle_[float|hor](opts)`:
 - `y = number` (0 <= _number_ <= 1) _# the height_
 - `border = string` (_string_ mentioned in `:help winborder`)
 
+## LoC
+
+```sh
+; tokei
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ Language              Files        Lines         Code     Comments       Blanks
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ Lua                       1          142           80           42           20
+─────────────────────────────────────────────────────────────────────────────────
+ Markdown                  1           44            0           28           16
+ |- Lua                    1           41           27           10            4
+ (Total)                               85           27           38           20
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ Total                     2          227          107           80           40
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
 ## TODO
 
 - [ ] Fix **type annotation**, so that you get hints about **_opts_** in `toggle_term(opts)`
 - [ ] Do (maybe?) a `setup()` function
 - [ ] Make `:help` docs
+- [ ] Using `&self` as the primary is stupid. I will have them as a side-dish.
+
+## LICENSE
+
+Copyleft (🄯) 2026 LibereCode. All Rights Reserved.\
+Licensed under the **EUPL-1.2**. See [the LICENSE](./LICENSE) for details.
